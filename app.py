@@ -121,7 +121,9 @@ def get_my_connections():
         cur.close()
         conn.close()
 
-
+@app.route("/")
+def health():
+    return jsonify({"status": "alive"}), 200
 # --- START THE SERVER ---
 if __name__ == "__main__":
     app.run(debug=True)
