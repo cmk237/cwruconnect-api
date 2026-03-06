@@ -106,7 +106,7 @@ def get_my_connections():
     cur = conn.cursor(cursor_factory=RealDictCursor)
     try:
         sql = """
-            SELECT u.id, u.name, u.minibio
+            SELECT u.userID, u.name, u.minibio
             FROM Users u
             JOIN Connections c ON (u.userID = c.userID1 OR u.userID = c.userID2)
             JOIN Results r ON c.connectionID = r.connectionID
