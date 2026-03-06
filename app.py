@@ -91,10 +91,9 @@ def get_my_connections():
     try:
         sql = """
             SELECT u.userID, u.name, u.minibio
-            FROM Users u
-            JOIN Connections c ON (u.userID = c.userID1 OR u.userID = c.userID2)
-            JOIN Results r ON c.connectionID = r.connectionID
-            WHERE r.userID = %s AND u.userID != %s;
+	    FROM Users u
+	    JOIN Connections c ON (u.userID = c.userID1 OR u.userID = c.userID2)
+	    WHERE (c.userID1 = %s OR c.userID2 = %s) AND u.userID != %s;
         """
         cur.execute(sql, (user_id, user_id))
         results = cur.fetchall()
