@@ -90,10 +90,11 @@ def get_my_connections():
     cur = conn.cursor(cursor_factory=RealDictCursor)
     try:
         sql = """
-            SELECT u.userID, u.name, u.minibio
-	    FROM Users u
-	    JOIN Connections c ON (u.userID = c.userID1 OR u.userID = c.userID2)
-	    WHERE (c.userID1 = %s OR c.userID2 = %s) AND u.userID != %s;
+            select users.userID, users.name, users.minibio
+from users
+where users.userID in (SELECT c.userID2
+FROM Connections c
+WHERE c.userID1 = %s;
         """
         cur.execute(sql, (user_id, user_id))
         results = cur.fetchall()
