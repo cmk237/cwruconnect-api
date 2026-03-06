@@ -96,7 +96,7 @@ where users.userID in (SELECT c.userID2
 FROM Connections c
 WHERE c.userID1 = %s;
         """
-        cur.execute(sql, (user_id, user_id))
+        cur.execute(sql, (user_id))
         results = cur.fetchall()
         return jsonify(results), 200
     except Exception as e:
